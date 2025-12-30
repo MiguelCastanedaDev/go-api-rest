@@ -10,6 +10,7 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/albums", handlers.HandleGetAllAlbums)
+	router.GET("/albums/:id", handlers.HandleGetAlbumByID)
 
 	router.Run("localhost:8080")
 }
