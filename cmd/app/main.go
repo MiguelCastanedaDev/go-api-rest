@@ -14,6 +14,7 @@ func main() {
 	router.GET("/albums", handlers.HandleGetAllAlbums)
 	router.GET("/albums/:id", handlers.HandleGetAlbumByID)
 	router.GET("/schools", handlers.HandleGetAllSchools)
+	router.GET("/schools/:id", handlers.HandleGetSchool)
 	router.POST("/schools", handlers.HandleCreateSchools)
 	router.DELETE("/schools/:uuid", handlers.HandleDeleteSchool)
 

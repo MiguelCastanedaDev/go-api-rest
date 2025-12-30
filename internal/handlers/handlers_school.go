@@ -53,3 +53,16 @@ func HandleDeleteSchool(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "School deleted successfully.", "status": http.StatusNoContent})
 }
+
+func HandleGetSchool(c *gin.Context) {
+	id := c.Param("id")
+	name := c.Query("name") // filtro opcional
+
+	school, err := services.GetSchoolByIDService(id, name)
+	if err != nil {
+		c.JSON(404, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, school)
+}

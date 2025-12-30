@@ -83,3 +83,40 @@ func DeleteSchoolService(schoolID string) error {
 
 	return err
 }
+
+func GetSchoolByIDService(
+	id string,
+	name string,
+) (*types.School, error) {
+
+	client, err := newSupabaseClient()
+	if err != nil {
+		return nil, err
+	}
+
+	query := client.
+		From("schools").
+		Select("*", "", false).
+		Eq("uuid", id)
+
+	// 🔍 Filtro opcional por nombre
+	if name != "" {
+		query = query.Ilike("name", "%"+name+"%")
+	}
+
+	data, _, err := query.Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	var schools []types.School
+	if err := json.Unmarshal(data, &schools); err != nil {
+		return nil, err
+	}
+
+	if len(schools) == 0 {
+		return nil, errors.New("school not found")
+	}
+
+	return &schools[0], nil
+}
