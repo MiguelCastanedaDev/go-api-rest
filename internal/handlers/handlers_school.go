@@ -40,3 +40,16 @@ func HandleCreateSchools(c *gin.Context) {
 
 	c.JSON(201, created)
 }
+
+func HandleDeleteSchool(c *gin.Context) {
+	schoolID := c.Param("uuid")
+
+	err := services.DeleteSchoolService(schoolID)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to delete school.", "status": http.StatusInternalServerError})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "School deleted successfully.", "status": http.StatusNoContent})
+}

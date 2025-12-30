@@ -74,3 +74,29 @@ The server response when status code is `201`
   "status": 201
 }
 ```
+
+## 📌 DELETE /school/{uuid}
+
+---
+
+### Path Parameters
+| Param | Type | Required | Description |
+|------|------|----------|-------------|
+| uuid | string | ✅ Sí | UUID de la escuela a eliminar |
+
+
+---
+
+### Request Example
+```http
+DELETE /schools/9a3f2c1e-7b21-4c8a-9e4a-123456789abc
+```
+
+### Response Example when all was success
+```json
+{
+  "message": "School deleted successfully.",
+  "status": 204
+}
+```
+

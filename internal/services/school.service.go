@@ -78,3 +78,27 @@ func CreateSchoolsService(schools []types.CreateSchoolRequest) ([]types.School, 
 
 	return created, nil
 }
+
+func DeleteSchoolService(schoolID string) error {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No se encontró archivo .env")
+	}
+
+	client, err := supabase.NewClient(
+		os.Getenv("SUPABASE_URL"),
+		os.Getenv("SUPABASE_KEY"),
+
+		nil,
+	)
+	if err != nil {
+		return err
+	}
+
+	_, _, err = client.
+		From("schools").
+		Delete("*", "").
+		Eq("uuid", schoolID).
+		Execute()
+
+	return err
+}
