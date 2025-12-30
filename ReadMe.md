@@ -4,6 +4,7 @@ This project has a 4 endpoints, two of them are connected with a Database on Sup
 
 ---
 
+
 | Method | Endpoint | Description |
 |------|---------|------------|
 | GET | /albums | Listar álbumes |
@@ -12,9 +13,39 @@ This project has a 4 endpoints, two of them are connected with a Database on Sup
 | GET | /schools | Listar escuelas |
 | POST | /schools | Crear escuelas (permite un `Array`) |
 
+
 ---
 
 ## 📌 GET /schools
+
+Make a `GET` to `/schools`.
+
+**Response**
+
+```json
+{
+  "data": [
+    {
+      "uuid": "hh2b0c47-56c5-4c1b-ca39-e8e31be1d71a",
+      "id": 15,
+      "name": "School 1",
+      "address": "Address school 1"
+    },
+    {
+      "uuid": "aah2b0c47-56c5-4dsb-ca39-e8e31be1d81x",
+      "id": 16,
+      "name": "School 2",
+      "address": "Address school 2"
+    }
+  ],
+
+  "status": 200
+}
+```
+
+---
+
+## 📌 POST /schools
 
 **Body**
 
@@ -25,7 +56,8 @@ This project has a 4 endpoints, two of them are connected with a Database on Sup
 }
 ```
 
-**Body**
+**Response**
+
 The server response when status code is `201`
 
 ```json
