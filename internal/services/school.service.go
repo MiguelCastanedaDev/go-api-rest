@@ -2,27 +2,26 @@ package services
 
 import (
 	"encoding/json"
-	"log"
+	"errors"
 	"os"
-
-	"github.com/joho/godotenv"
 
 	"github.com/api-rest-go/internal/types"
 	supabase "github.com/supabase-community/supabase-go"
 )
 
-func GetAllSchoolsService() []types.School {
+func newSupabaseClient() (*supabase.Client, error) {
+	supabaseURL := os.Getenv("SUPABASE_URL")
+	supabaseKey := os.Getenv("SUPABASE_KEY")
 
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Println("No se encontró archivo .env")
+	if supabaseURL == "" || supabaseKey == "" {
+		return nil, errors.New("missing SUPABASE env vars")
 	}
 
-	supabaseUrl := os.Getenv("SUPABASE_URL")
-	supabaseKey := os.Getenv("SUPABASE_key")
+	return supabase.NewClient(supabaseURL, supabaseKey, nil)
+}
 
-	client, err := supabase.NewClient(supabaseUrl, supabaseKey, nil)
+func GetAllSchoolsService() []types.School {
+	client, err := newSupabaseClient()
 	if err != nil {
 		return nil
 	}
@@ -37,27 +36,18 @@ func GetAllSchoolsService() []types.School {
 	}
 
 	var schools []types.School
-	err = json.Unmarshal(data, &schools)
-	if err != nil {
+	if err := json.Unmarshal(data, &schools); err != nil {
 		return nil
 	}
 
 	return schools
 }
 
-func CreateSchoolsService(schools []types.CreateSchoolRequest) ([]types.School, error) {
-	err := godotenv.Load()
+func CreateSchoolsService(
+	schools []types.CreateSchoolRequest,
+) ([]types.School, error) {
 
-	if err != nil {
-		log.Println("No se encontró archivo .env")
-	}
-
-	client, err := supabase.NewClient(
-		os.Getenv("SUPABASE_URL"),
-		os.Getenv("SUPABASE_key"),
-		nil,
-	)
-
+	client, err := newSupabaseClient()
 	if err != nil {
 		return nil, err
 	}
@@ -80,16 +70,7 @@ func CreateSchoolsService(schools []types.CreateSchoolRequest) ([]types.School, 
 }
 
 func DeleteSchoolService(schoolID string) error {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No se encontró archivo .env")
-	}
-
-	client, err := supabase.NewClient(
-		os.Getenv("SUPABASE_URL"),
-		os.Getenv("SUPABASE_KEY"),
-
-		nil,
-	)
+	client, err := newSupabaseClient()
 	if err != nil {
 		return err
 	}
