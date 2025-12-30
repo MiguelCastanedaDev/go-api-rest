@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/api-rest-go/internal/handlers"
@@ -15,5 +17,10 @@ func main() {
 	router.POST("/schools", handlers.HandleCreateSchools)
 	router.DELETE("/schools/:uuid", handlers.HandleDeleteSchool)
 
-	router.Run("localhost:8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback para local
+	}
+
+	router.Run("0.0.0.0:" + port)
 }
