@@ -11,6 +11,8 @@ func main() {
 
 	router.GET("/albums", handlers.HandleGetAllAlbums)
 	router.GET("/albums/:id", handlers.HandleGetAlbumByID)
+	router.GET("/schools", handlers.HandleGetAllSchools)
+	router.POST("/schools", handlers.HandleCreateSchools)
 
 	router.Run("localhost:8080")
 }
