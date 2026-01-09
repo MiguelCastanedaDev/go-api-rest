@@ -5,4 +5,5 @@ type School struct {
 	ID      int    `json:"id,omitempty"`
 	Name    string `json:"name"`
 	Address string `json:"address"`
+	Phone   string `json:"phone"`
 }

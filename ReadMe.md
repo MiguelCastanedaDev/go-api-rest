@@ -2,9 +2,6 @@
 
 This project has a 4 endpoints, two of them are connected with a Database on Supabase.
 
----
-
-
 | Method | Endpoint | Description |
 |------|---------|------------|
 | GET | /albums | Listar álbumes |
@@ -12,9 +9,6 @@ This project has a 4 endpoints, two of them are connected with a Database on Sup
 | DELETE | /albums/{id} | Eliminar álbum |
 | GET | /schools | Listar escuelas |
 | POST | /schools | Crear escuelas (permite un `Array`) |
-
-
----
 
 ## 📌 GET /schools
 
@@ -42,8 +36,6 @@ Make a `GET` to `/schools`.
   "status": 200
 }
 ```
-
----
 
 ## 📌 POST /schools
 
@@ -77,15 +69,10 @@ The server response when status code is `201`
 
 ## 📌 DELETE /school/{uuid}
 
----
-
 ### Path Parameters
 | Param | Type | Required | Description |
 |------|------|----------|-------------|
 | uuid | string | ✅ Sí | UUID de la escuela a eliminar |
-
-
----
 
 ### Request Example
 ```http
